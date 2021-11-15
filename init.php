@@ -1,7 +1,7 @@
 <?php
 class Mail extends Plugin {
 
-	/* @var PluginHost $host */
+	/** @var PluginHost $host */
 	private $host;
 
 	function about() {
@@ -26,7 +26,7 @@ class Mail extends Plugin {
 		return "<div dojoType='dijit.MenuItem' onclick='Plugins.Mail.send()'>".__('Forward by email')."</div>";
 	}
 
-	function save() {
+	function save() : void {
 		$addresslist = $_POST["addresslist"];
 
 		$this->host->set($this, "addresslist", $addresslist);
@@ -77,7 +77,7 @@ class Mail extends Plugin {
 					title='".__('Forward by email')."'>mail</i>";
 	}
 
-	function emailArticle() {
+	function emailArticle() : void {
 
 		$ids = explode(",", clean($_REQUEST['ids']));
 		$ids_qmarks = arr_qmarks($ids);
@@ -190,7 +190,7 @@ class Mail extends Plugin {
 		<?php
 	}
 
-	function sendEmail() {
+	function sendEmail() : void {
 		$reply = array();
 
 		/*$mail->AddReplyTo(strip_tags($_REQUEST['from_email']),
