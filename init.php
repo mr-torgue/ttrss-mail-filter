@@ -15,15 +15,15 @@ class Mail extends Plugin {
 
 		$host->add_hook($host::HOOK_ARTICLE_BUTTON, $this);
 		$host->add_hook($host::HOOK_PREFS_TAB, $this);
-		$host->add_hook($host::HOOK_HEADLINE_TOOLBAR_SELECT_MENU_ITEM, $this);
+		$host->add_hook($host::HOOK_HEADLINE_TOOLBAR_SELECT_MENU_ITEM2, $this);
 	}
 
 	function get_js() {
 		return file_get_contents(__DIR__ . "/mail.js");
 	}
 
-	function hook_headline_toolbar_select_menu_item($feed_id, $is_cat) {
-		return "<div dojoType='dijit.MenuItem' onclick='Plugins.Mail.send()'>".__('Forward by email')."</div>";
+	function hook_headline_toolbar_select_menu_item2($feed_id, $is_cat) {
+		return "<option value='Plugins.Mail.send()'>".__('Forward by email')."</option>";
 	}
 
 	function save() : void {

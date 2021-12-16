@@ -1,6 +1,14 @@
-/* global Plugins, Headlines, dojo, App, xhr, Notify, fox, __ */
+/* global require, PluginHost, Plugins, Headlines, dojo, App, xhr, Notify, fox, __ */
 
 Plugins.Mail = {
+	init: function() {
+		PluginHost.register(PluginHost.HOOK_HEADLINE_TOOLBAR_SELECT_MENU_ITEM2, (action) => {
+			if (action == "Plugins.Mail.send()")
+				this.send();
+
+				return true;
+		});
+	},
 	send: function(id) {
 		if (!id) {
 			const ids = Headlines.getSelected();
@@ -49,3 +57,9 @@ Plugins.Mail = {
 		Plugins.Mail.send(id);
 	}
 };
+
+require(['dojo/_base/kernel', 'dojo/ready'], function  (dojo, ready, script) {
+	ready(function() {
+		Plugins.Mail.init();
+	})
+});
