@@ -74,7 +74,7 @@ class Mail extends Plugin {
 	function hook_article_button($line) {
 		return "<i class='material-icons' style=\"cursor : pointer\"
 					onclick=\"Plugins.Mail.send(".$line["id"].")\"
-					title='".__('Forward by email')."'>mail</i>";
+					title=\"".__('Forward by email')."\">mail</i>";
 	}
 
 	function emailArticle() : void {
