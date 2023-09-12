@@ -1,35 +1,27 @@
 <?php
-class mail_filter extends Plugin {
-
-	/** @var PluginHost $host */
+class Mail_Filter extends Plugin {
 	private $host;
 
 	function about() {
-		return array(null,
-			"Send email notification based on filter",
-			"mr-torgue");
+		return array(1.0,
+			"Example Filter plugin",
+			"fox");
 	}
 
 	function init($host) {
 		$this->host = $host;
 
-		//$host->add_hook($host::HOOK_ARTICLE_BUTTON, $this);
-		//$host->add_hook($host::HOOK_PREFS_TAB, $this);
-		//$host->add_hook($host::HOOK_HEADLINE_TOOLBAR_SELECT_MENU_ITEM2, $this);
+		$host->add_hook($host::HOOK_ARTICLE_FILTER_ACTION, $this);
 
-		$host->add_filter_action($this, 'test',__('JS Notifications API'));
+		$host->add_filter_action($this, "action_example", "Example action");
+		$host->add_filter_action($this, "action_another", "Another action");
 	}
 
-	function get_js() {
-		return file_get_contents(__DIR__ . '/init.js') ?: '';
-	}
-	
-	/**
-	 * @param array<string,mixed> $article
-	 * @param string $action
-	 * @return array<string,mixed> ($article)
-	 */
 	function hook_article_filter_action($article, $action) {
+		// if ($action == "...") { .... }
+
+		$article["title"] = "[EXAMPLE FILTER WAS HERE: $action] " . $article["title"];
+
 		return $article;
 	}
 
@@ -38,3 +30,4 @@ class mail_filter extends Plugin {
 	}
 
 }
+?>
