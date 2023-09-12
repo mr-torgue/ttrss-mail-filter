@@ -17,9 +17,13 @@ class MailFilter extends Plugin {
 		//$host->add_hook($host::HOOK_PREFS_TAB, $this);
 		//$host->add_hook($host::HOOK_HEADLINE_TOOLBAR_SELECT_MENU_ITEM2, $this);
 
-		$host->add_filter_action($this, 'test', __('test'));
+		$host->add_filter_action($this, 'test',__('JS Notifications API'));
 	}
 
+	function get_js() {
+		return file_get_contents(__DIR__ . '/init.js') ?: '';
+	}
+	
 	/**
 	 * @param array<string,mixed> $article
 	 * @param string $action
