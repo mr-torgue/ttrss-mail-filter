@@ -11,6 +11,7 @@ class Mail_Filter extends Plugin {
 	function init($host) {
 		$this->host = $host;
 
+		Logger::log(E_USER_NOTICE, "loaded mail notification filter);
 		$host->add_hook($host::HOOK_ARTICLE_FILTER_ACTION, $this);
 		//$host->add_hook($host::HOOK_ACTION_ITEM, $this);
 
