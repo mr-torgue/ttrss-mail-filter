@@ -6,75 +6,32 @@ class Mail extends Plugin {
 
 	function about() {
 		return array(null,
-			"Share article via email",
-			"fox");
+			"Send email notification based on filter",
+			"mr-torgue");
 	}
 
 	function init($host) {
 		$this->host = $host;
 
-		$host->add_hook($host::HOOK_ARTICLE_BUTTON, $this);
-		$host->add_hook($host::HOOK_PREFS_TAB, $this);
-		$host->add_hook($host::HOOK_HEADLINE_TOOLBAR_SELECT_MENU_ITEM2, $this);
+		//$host->add_hook($host::HOOK_ARTICLE_BUTTON, $this);
+		//$host->add_hook($host::HOOK_PREFS_TAB, $this);
+		//$host->add_hook($host::HOOK_HEADLINE_TOOLBAR_SELECT_MENU_ITEM2, $this);
+
+		$host->add_filter_action($this, 'test', __('test'));
 	}
 
+	/**
+	 * @param array<string,mixed> $article
+	 * @param string $action
+	 * @return array<string,mixed> ($article)
+	 */
+	function hook_article_filter_action($article, $action) {
+		return $article;
+	}
+
+	
 	function get_js() {
 		return file_get_contents(__DIR__ . "/mail.js");
-	}
-
-	function hook_headline_toolbar_select_menu_item2($feed_id, $is_cat) {
-		return "<option value='Plugins.Mail.send()'>".__('Forward by email')."</option>";
-	}
-
-	function save() : void {
-		$addresslist = $_POST["addresslist"];
-
-		$this->host->set($this, "addresslist", $addresslist);
-
-		echo __("Mail addresses saved.");
-	}
-
-	function hook_prefs_tab($args) {
-		if ($args != "prefPrefs") return;
-
-		$addresslist = $this->host->get($this, "addresslist");
-
-		?>
-
-		<div dojoType="dijit.layout.AccordionPane"
-			title="<i class='material-icons'>mail</i> <?= __('Mail plugin') ?>">
-
-			<form dojoType="dijit.form.Form">
-				<?= \Controls\pluginhandler_tags($this, "save") ?>
-
-				<script type="dojo/method" event="onSubmit" args="evt">
-					evt.preventDefault();
-					if (this.validate()) {
-						Notify.progress('Saving data...', true);
-						xhr.post("backend.php", this.getValues(), (reply) => {
-							Notify.info(reply);
-						})
-					}
-				</script>
-
-				<header><?= __("You can set predefined email addressed here (comma-separated list):") ?></header>
-
-				<textarea dojoType="dijit.form.SimpleTextarea" style='font-size : 12px; width : 50%' rows="3"
-					name='addresslist'><?= $addresslist ?></textarea>
-
-				<hr/>
-
-				<?= \Controls\submit_tag(__("Save")) ?>
-
-			</form>
-		</div>
-		<?php
-	}
-
-	function hook_article_button($line) {
-		return "<i class='material-icons' style=\"cursor : pointer\"
-					onclick=\"Plugins.Mail.send(".$line["id"].")\"
-					title=\"".__('Forward by email')."\">mail</i>";
 	}
 
 	function emailArticle() : void {
