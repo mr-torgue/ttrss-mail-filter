@@ -12,7 +12,7 @@ class Mail_Filter extends Plugin {
 		$this->host = $host;
 
 		$host->add_hook($host::HOOK_ARTICLE_FILTER_ACTION, $this);
-		$host->add_hook($host::HOOK_ACTION_ITEM, $this);
+		//$host->add_hook($host::HOOK_ACTION_ITEM, $this);
 
 		$host->add_filter_action($this, "send_mail_notification", "Send Mail Notification");
 	}
@@ -25,9 +25,9 @@ class Mail_Filter extends Plugin {
 		return $article;
 	}
 
-	function hook_action_item() {
-		return "testing";
-	}
+	//function hook_action_item() {
+	//	return "testing";
+	//}
 
 	/*
  	sends a notification to the email address of the user that is logged in.
