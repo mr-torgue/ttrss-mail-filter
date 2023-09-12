@@ -12,9 +12,9 @@ class Mail_Filter extends Plugin {
 		$this->host = $host;
 
 		$host->add_hook($host::HOOK_ARTICLE_FILTER_ACTION, $this);
+		$host->add_hook($host::HOOK_ACTION_ITEM, $this);
 
-		$host->add_filter_action($this, "action_example", "Example action");
-		$host->add_filter_action($this, "action_another", "Another action");
+		$host->add_filter_action($this, "send_mail_notification", "Send Mail Notification");
 	}
 
 	function hook_article_filter_action($article, $action) {
@@ -23,6 +23,10 @@ class Mail_Filter extends Plugin {
 		$article["title"] = "[EXAMPLE FILTER WAS HERE: $action] " . $article["title"];
 
 		return $article;
+	}
+
+	function hook_action_item() {
+		return "testing";
 	}
 
 	function api_version() {
