@@ -18,6 +18,7 @@ class Mail_Filter extends Plugin {
 	}
 
 	function hook_article_filter_action($article, $action) {
+		Logger::log(E_USER_NOTICE, "action triggered: ". $action);
 		if($action == "send_mail_notification") { 
 			$this->send_notification($article, 'Alert');
 		}
