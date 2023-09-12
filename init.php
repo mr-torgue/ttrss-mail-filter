@@ -1,5 +1,5 @@
 <?php
-class Mail extends Plugin {
+class MailFilter extends Plugin {
 
 	/** @var PluginHost $host */
 	private $host;
