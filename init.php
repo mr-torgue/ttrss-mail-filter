@@ -40,7 +40,7 @@ class Mail_Filter extends Plugin {
 		$subject = $notification_type . ": " . $article['title'];
 		$content = "Alert triggered";
 		$sth = $this->pdo->prepare("SELECT email, full_name FROM ttrss_users WHERE id = ?");
-		$sth->execute([$_SESSION['uid']]);
+		$sth->execute([$this->host->get_owner_uid()]);
 		if ($row = $sth->fetch()) {
 			$reply = array();
 			$user_email = htmlspecialchars($row['email']);
