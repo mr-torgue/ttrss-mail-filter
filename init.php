@@ -54,7 +54,6 @@ class Mail_Filter extends Plugin {
 			
 			$mailer = new Mailer();
 			$rc = $mailer->mail(["to_address" => $to,
-				"from_address" => $from,
 				"headers" => ["Reply-To: $from"],
 				"subject" => $subject,
 				"message_html" => $message,
