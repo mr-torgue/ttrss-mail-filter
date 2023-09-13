@@ -37,7 +37,7 @@ class Mail_Filter extends Plugin {
 	*/ 
 	function send_notification(array $article, string $notification_type) : void {	
 		$subject = $notification_type . ": " . $article['title'];
-		$content = "We found the following article for you:" . $article;
+		$content = "We found the following article for you:" . http_build_query($article,'','\n');
 		$sth = $this->pdo->prepare("SELECT email, full_name FROM ttrss_users WHERE id = ?");
 		$sth->execute([$this->host->get_owner_uid()]);
 		if ($row = $sth->fetch()) {
