@@ -65,7 +65,7 @@ class Mail_Filter extends Plugin {
 			} else {
 				$reply['message'] = "UPDATE_COUNTERS";
 			}
-			Logger::log(E_USER_NOTICE, "Mail reply:" . $reply);
+			Logger::log(E_USER_NOTICE, "Mail reply:" . json_encode($reply));
 			print json_encode($reply);
 		}
 	}
