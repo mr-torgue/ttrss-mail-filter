@@ -49,7 +49,7 @@ class Mail_Filter extends Plugin {
 
 			$to = $user_email;
 			$subject = strip_tags($subject);
-			$message = "We found the following: <a href='" . $article['link'] . "'>article</a> for you:\n" . strip_tags($content);
+			$message = "We found the following: <a href='" . $article['link'] . "'>article</a> for you:<br>" . strip_tags($content);
 			$from = "notify-ttrss@local.host";
 			
 			$mailer = new Mailer();
