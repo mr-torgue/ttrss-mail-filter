@@ -57,7 +57,8 @@ class Mail_Filter extends Plugin {
 				"from_address" => $from,
 				"headers" => ["Reply-To: $from"],
 				"subject" => $subject,
-				"message_html" => $message]);
+				"message_html" => $message,
+				"message" => $message]);
 	
 			if (!$rc) {
 				$reply['error'] =  $mailer->error();
