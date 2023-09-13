@@ -10,8 +10,7 @@ class Mail_Filter extends Plugin {
 
 	function init($host) {
 		$this->host = $host;
-		
-		Logger::log(E_USER_NOTICE, "alert!");
+	
 		$host->add_hook($host::HOOK_ARTICLE_FILTER_ACTION, $this);
 		//$host->add_hook($host::HOOK_ACTION_ITEM, $this);
 
@@ -19,8 +18,8 @@ class Mail_Filter extends Plugin {
 	}
 
 	function hook_article_filter_action($article, $action) {
-		Logger::log(E_USER_NOTICE, "action triggered");
 		if($action == "send_mail_notification") { 
+			Logger::log(E_USER_NOTICE, "Send Mail Notification triggered");
 			$this->send_notification($article, 'Alert');
 		}
 		return $article;
