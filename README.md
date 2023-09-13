@@ -45,4 +45,4 @@ Congrats! Everytime this filter matches an article, you will get notified!
 Currently there are a few limitations:
 1. No custom mail address: we can only send to the mail address of the currently logged in user
 2. No filter name in the mail notification: so you don't know which filter triggered this
-3. No from address
+3. No custom from address
