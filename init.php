@@ -4,8 +4,8 @@ class Mail_Filter extends Plugin {
 
 	function about() {
 		return array(1.0,
-			"Example Filter plugin",
-			"fox");
+			"A Mail Notification Filter Plugin",
+			"mr-torgue");
 	}
 
 	function init($host) {
@@ -37,7 +37,7 @@ class Mail_Filter extends Plugin {
 	*/ 
 	function send_notification(array $article, string $notification_type) : void {	
 		$subject = $notification_type . ": " . $article['title'];
-		$content = "Alert triggered";
+		$content = "We found the following article for you:" . $article;
 		$sth = $this->pdo->prepare("SELECT email, full_name FROM ttrss_users WHERE id = ?");
 		$sth->execute([$this->host->get_owner_uid()]);
 		if ($row = $sth->fetch()) {
