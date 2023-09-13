@@ -39,7 +39,7 @@ class Mail_Filter extends Plugin {
 	*/ 
 	function send_notification(array $article, string $notification_type) : void {	
 		$subject = $notification_type . ": " . $article['title'];
-		$content = "We found the following article for you:" . http_build_query($article,'','\n');
+		$content = $article['content'];
 		$sth = $this->pdo->prepare("SELECT email, full_name FROM ttrss_users WHERE id = ?");
 		$sth->execute([$this->host->get_owner_uid()]);
 		if ($row = $sth->fetch()) {
@@ -49,7 +49,7 @@ class Mail_Filter extends Plugin {
 
 			$to = $user_email;
 			$subject = strip_tags($subject);
-			$message = strip_tags($content);
+			$message = "We found the following: <a href='" . $article['link'] . "'>article</a> for you:\n" . strip_tags($content);
 			$from = "notify-ttrss@local.host";
 			
 			$mailer = new Mailer();
