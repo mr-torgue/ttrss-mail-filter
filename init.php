@@ -3,9 +3,11 @@ class Mail_Filter extends Plugin {
 	private $host;
 
 	function about() {
-		return array(1.0,
+		return array(0.1,
 			"A Mail Notification Filter Plugin",
-			"mr-torgue");
+			"mr-torgue",
+			false, 
+			'https://github.com/mr-torgue/ttrss-mail-filter',);
 	}
 
 	function init($host) {
