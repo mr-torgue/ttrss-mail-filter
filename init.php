@@ -53,7 +53,9 @@ class Mail_Filter extends Plugin {
 			$from = "notify-ttrss@local.host";
 			
 			$mailer = new Mailer();
+			$mailer->isHTML(true);
 			$rc = $mailer->mail(["to_address" => $to,
+				"from_address" => $from,
 				"headers" => ["Reply-To: $from"],
 				"subject" => $subject,
 				"message" => $message]);
