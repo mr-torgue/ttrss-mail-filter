@@ -20,7 +20,7 @@ class Mail_Filter extends Plugin {
 	function hook_article_filter_action($article, $action) {
 		Logger::log(E_USER_NOTICE, "action triggered");
 		if($action == "send_mail_notification") { 
-			//$this->send_notification($article, 'Alert');
+			$this->send_notification($article, 'Alert');
 		}
 		return $article;
 	}
@@ -34,10 +34,10 @@ class Mail_Filter extends Plugin {
   	TODO: allow user to specify custom email address
    	TODO: allow user to specify from email address
     	TODO: specify the filter it was triggered on
-	*/ /*
+	*/ 
 	function send_notification(array $article, string $notification_type) : void {	
 		$subject = $notification_type . ": " . $article['title'];
-		$content = "Alert triggered on the following article: " . $article;
+		$content = "Alert triggered";
 		$sth = $this->pdo->prepare("SELECT email, full_name FROM ttrss_users WHERE id = ?");
 		$sth->execute([$_SESSION['uid']]);
 		if ($row = $sth->fetch()) {
@@ -63,7 +63,7 @@ class Mail_Filter extends Plugin {
 			}
 			print json_encode($reply);
 		}
-	}*/
+	}
 
 
 	function api_version() {
