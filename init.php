@@ -1,6 +1,8 @@
 <?php
 class Mail_Filter extends Plugin {
 	private $host;
+	
+	const MAIL_FILTER_FROM = "MAIL_FILTER_FROM";
 
 	function about() {
 		return array(0.2,
