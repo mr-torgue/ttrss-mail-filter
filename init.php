@@ -3,7 +3,7 @@ class Mail_Filter extends Plugin {
 	private $host;
 
 	function about() {
-		return array(0.1,
+		return array(0.2,
 			"A Mail Notification Filter Plugin",
 			"mr-torgue",
 			false, 
@@ -12,7 +12,7 @@ class Mail_Filter extends Plugin {
 
 	function init($host) {
 		$this->host = $host;
-	
+		Config::add(self::MAIL_FILTER_FROM, "ttrss@localhost", Config::T_STRING);
 		$host->add_hook($host::HOOK_ARTICLE_FILTER_ACTION, $this);
 		//$host->add_hook($host::HOOK_ACTION_ITEM, $this);
 
@@ -33,8 +33,8 @@ class Mail_Filter extends Plugin {
 
 	/*
  	sends a notification to the email address of the user that is logged in.
+  	from address is specified in MAIL_FILTER_FROM
   	TODO: allow user to specify custom email address
-   	TODO: allow user to specify from email address
     	TODO: specify the filter it was triggered on
 	*/ 
 	function send_notification(array $article, string $notification_type) : void {	
@@ -50,7 +50,7 @@ class Mail_Filter extends Plugin {
 			$to = $user_email;
 			$subject = strip_tags($subject);
 			$message = "We found the following: <a href='" . $article['link'] . "'>article</a> for you:<br>" . strip_tags($content);
-			$from = "notify-ttrss@local.host";
+			$from = Config::get(self::MAIL_FILTER_FROM);
 			
 			$mailer = new Mailer();
 			$rc = $mailer->mail(["to_address" => $to,
