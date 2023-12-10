@@ -23,7 +23,6 @@ class Mail_Filter extends Plugin {
 
 	function hook_article_filter_action($article, $action) {
 		if($action == "send_mail_notification") { 
-			Logger::log(E_USER_NOTICE, "Send Mail Notification triggered");
 			$this->send_notification($article, 'Alert');
 		}
 		return $article;
@@ -60,14 +59,12 @@ class Mail_Filter extends Plugin {
 				"subject" => $subject,
 				"message_html" => $message,
 				"message" => $message]);
-	
+			
 			if (!$rc) {
-				$reply['error'] =  $mailer->error();
+				Logger::log(E_USER_NOTICE, "ERROR: mail from " . $from . " to " . $to . " failed. Error: " . $mailer->error());
 			} else {
-				$reply['message'] = "UPDATE_COUNTERS";
+				Logger::log(E_USER_NOTICE, "SUCCESS: sent article " . $article['link'] . " from " . $from . " to " . $to);
 			}
-			Logger::log(E_USER_NOTICE, "Mail reply:" . json_encode($reply));
-			print json_encode($reply);
 		}
 	}
 
